@@ -1,253 +1,480 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
+import {
+  FaDownload, FaGithub, FaLinkedin, FaReact, FaNodeJs, FaJava,
+  FaAndroid, FaGitAlt, FaLinux, FaDatabase, FaEnvelope, FaPhone
+} from "react-icons/fa";
+import {
+  SiTailwindcss, SiJavascript, SiHtml5, SiCss3,
+  SiMongodb, SiMysql, SiPostgresql, SiPhp, SiCodeigniter
+} from "react-icons/si";
+import Navbar from "./navbar";
 
-// Simple, single-file React portfolio component
-// Drop this into src/App.jsx of a Vite or CRA project. Add Tailwind for styling.
-// Host free on GitHub Pages or Vercel. Replace placeholder data below with yours.
+import resume from './assets/resume.pdf';
+import { FaWebAwesome } from "react-icons/fa6";
 
-const data = {
+/* ===================
+   Theme Constants
+   =================== */
+const PRIMARY_GRADIENT = "from-[#ff00d4] to-[#00ddff]";
+const PRIMARY_TEXT_GRADIENT = `text-transparent bg-clip-text bg-gradient-to-r ${PRIMARY_GRADIENT}`;
+const PRIMARY_BG_GRADIENT = `bg-gradient-to-r ${PRIMARY_GRADIENT}`;
+
+/* ===================
+   Portfolio Data
+   =================== */
+const portfolioData = {
   name: "Mohammed Sameer Inamdar",
-  title: "Full-Stack & Mobile Developer",
-  tagline:
-    "I build scalable, user‑friendly web and mobile apps with JSF and the MERN stack.",
-  location: "Vijayapura, India",
-  email: "mohammedsameerinamdar@gmail.com",
-  phone: "+91 81474 17110",
-  links: {
-    github: "https://github.com/your-username",
-    linkedin: "https://www.linkedin.com/in/your-link/", // ← replace
-    skype: "live:your.skype.id", // ← replace
-    resume: "/resume.pdf", // optional
+  titles: ["Full Stack Developer", "React.js Developer", "Node.js Developer", "Java Developer"],
+  objective:
+    "Passionate about building scalable, user-friendly applications. Skilled in full-stack development and always eager to explore new technologies. Currently working full-time at Indea Design Systems Pvt. Ltd.",
+  resume: resume,
+  github: "https://github.com/Mohammed-Sameer-Inamdar",
+  linkedin: "http://linkedin.com/in/mohammed-sameer-inamdar-031121174",
+  portfolio: "https://mohammed-sameer-inamdar.github.io/portfolio/",
+  contact: {
+    email: "mohammedsameerinamdar@gmail.com",
+    phone: "+91 81474 17110"
   },
-  skills: {
-    frontend: ["React", "JSF", "PrimeFaces", "HTML", "CSS", "JavaScript"],
-    backend: ["Node.js", "Express", "Java", "REST APIs", "GraphQL"],
-    databases: ["MongoDB", "MySQL", "MS SQL"],
-    tools: ["Git", "GitHub", "Linux", "Android Studio", "VS Code"],
-  },
+  skills: [
+    {
+      title: "Frontend",
+      items: [
+        { icon: <SiJavascript className="text-yellow-400" />, name: "JavaScript" },
+        { icon: <SiHtml5 className="text-orange-500" />, name: "HTML" },
+        { icon: <SiCss3 className="text-blue-500" />, name: "CSS" },
+        { icon: <FaReact className="text-cyan-400" />, name: "React" },
+        { icon: <SiTailwindcss className="text-sky-400" />, name: "Tailwind CSS" }
+      ]
+    },
+    {
+      title: "Backend",
+      items: [
+        { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
+        { icon: <FaJava className="text-red-500" />, name: "Java" },
+        { icon: <SiPhp className="text-indigo-400" />, name: "PHP" },
+        { icon: <SiCodeigniter className="text-red-400" />, name: "CodeIgniter" }
+      ]
+    },
+    {
+      title: "Mobile",
+      items: [
+        { icon: <FaAndroid className="text-green-400" />, name: "Android Studio" },
+        { icon: <FaReact className="text-cyan-400" />, name: "React Native" }
+      ]
+    },
+    {
+      title: "Databases",
+      items: [
+        { icon: <SiMongodb className="text-green-500" />, name: "MongoDB" },
+        { icon: <SiMysql className="text-blue-500" />, name: "MySQL" },
+        { icon: <SiPostgresql className="text-indigo-500" />, name: "PostgreSQL" },
+        { icon: <FaDatabase className="text-gray-300" />, name: "MS SQL" }
+      ]
+    },
+    {
+      title: "Tools",
+      items: [
+        { icon: <FaGitAlt className="text-orange-500" />, name: "Git" },
+        { icon: <FaLinux className="text-yellow-500" />, name: "Linux" }
+      ]
+    }
+  ],
   projects: [
     {
-      name: "Repfabric CRM",
-      stack: ["JSF", "PrimeFaces", "Java"],
-      desc:
-        "Team-built CRM focused on performance and code reusability with deep API integrations (Salesforce, SugarCRM, NetSuite, QuickBooks, LMS, and more).",
-      demo: "#",
-      code: "#",
+      title: "Repfabric CRM Integration",
+      description: "I contributed to the development of the Repfabric project, a comprehensive customer relationship management (CRM) system built using JavaServer Faces (JSF). The primary objective of this project was to streamline sales processes, enhance customer interaction, and improve overall sales management efficiency.",
+      github: null,
+      demo: null,
+      featured: true
     },
     {
-      name: "Hospitality System (Web App)",
-      stack: ["React", "Node", "Express", "MySQL", "MUI"],
-      desc:
-        "Developed core features for bookings, guest info, and staff scheduling with a clean, responsive UI.",
-      demo: "#",
-      code: "#",
+      title: "Hospitality Management System",
+      description: "A comprehensive hospitality management system built using React, Node.js, Express.js, and MongoDB. Features user authentication, reservation management.",
+      github: "https://github.com/Mohammed-Sameer-Inamdar/hospitality",
+      demo: null
     },
     {
-      name: "Bgoz – Food Delivery (Android)",
-      stack: ["Android Studio", "Firebase", "GCP"],
-      desc:
-        "Built and launched an Android app with menu browsing, order placement, and real‑time delivery tracking.",
-      demo: "#",
-      code: "#",
+      title: "Dynamic Form Builder",
+      description: "React-based drag-and-drop form creation tool allowing custom field types, sections, and real-time preview. Integrated with APIs for saving and retrieving form layouts.",
+      github: "https://github.com/Mohammed-Sameer-Inamdar/dynamicForms",
+      demo: null
     },
     {
-      name: "Dynamic Forms & Responses",
-      stack: ["React", "Node", "Express", "MongoDB"],
-      desc:
-        "Create, customize, and submit dynamic forms with real‑time response handling.",
-      demo: "#",
-      code: "#",
+      title: "Social Media",
+      description: "A social media platform built using React, Node.js, Express.js, and MongoDB. Features user authentication, profile creation, and real-time chat functionality.",
+      github: "https://github.com/Mohammed-Sameer-Inamdar/social-medai",
+      demo: null
     },
+    {
+      title: "Task Management App",
+      description: "React + RTK Query powered app for managing tasks with filters, sorting, authentication, and optimized performance using memoization techniques.",
+      github: "https://github.com/Mohammed-Sameer-Inamdar/taskManager",
+      demo: null
+    },
+    {
+      title: "Portfolio Website",
+      description: "Modern personal portfolio with responsive design, animations, and interactive UI built using React, Tailwind CSS, and Vite.",
+      github: "https://github.com/Mohammed-Sameer-Inamdar/portfolio",
+      demo: "https://mohammed-sameer-inamdar.github.io/portfolio/"
+    },
+    {
+      title: "Know Your Rights",
+      description: "CodeIgniter powered app for understanding and complying with legal documents, ensuring compliance with laws and regulations. Providing references to the relevant laws and regulations.",
+      github: "https://github.com/Mohammed-Sameer-Inamdar/know_your_rights",
+      demo: null
+    }
   ],
-  experience: [
+  journey: [
+    // EXPERIENCE
     {
-      role: "Software Developer",
+      type: "experience",
+      title: "Senior Software Developer",
       company: "Indea Design Systems Pvt. Ltd",
       period: "Apr 2021 – Present",
-      points: [
-        "Collaborated on CRM features with a focus on performance and standards.",
-        "Specialized in API integrations across external platforms.",
-      ],
+      description:
+        "Collaborated on CRM and hospitality projects using JSF, React, and Node.js. Focused on performance optimization, API integration, and scalable solutions."
     },
     {
-      role: "Junior Software Developer (Trainee)",
-      company: "Rooman Technologies, Bangalore",
+      type: "experience",
+      title: "Junior Software Developer (Trainee)",
+      company: "Rooman Technologies",
       period: "Feb 2020 – Apr 2020",
-      points: [
-        "Completed comprehensive Java training (OOP, DS, best practices).",
-      ],
+      description:
+        "Completed comprehensive Java training focusing on OOP, Data Structures, and software development best practices."
     },
-  ],
+
+    // EDUCATION
+    {
+      type: "education",
+      title: "B.E. (ECE)",
+      company: "B.L.D.E.A.’s V.P. Dr. P.G. Halakatti College of Engineering and Technology, VTU University",
+      period: "2015 – 2019",
+      description: "Graduated with 7.65 CGPA"
+    },
+    {
+      type: "education",
+      title: "PUC (Science)",
+      company: "Secab P.U. College for Boys Vijayapur",
+      period: "2013 – 2015",
+      description: "Scored 87.33% (Distinction)"
+    },
+    {
+      type: "education",
+      title: "SSLC (10th)",
+      company: "Iqra Urdu High School Vijayapur",
+      period: "2012 – 2013",
+      description: "Scored 78.88%"
+    }
+  ]
 };
 
-const Section = ({ id, title, children }) => (
-  <section id={id} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-6">{title}</h2>
-    {children}
-  </section>
-);
+/* ===================
+   Scroll Animation Hook
+   =================== */
+function useScrollAnimation() {
+  const ref = useRef();
+  const [visible, setVisible] = useState(false);
 
-const Pill = ({ children }) => (
-  <span className="px-3 py-1 rounded-full border border-gray-300 dark:border-gray-700 text-sm">
-    {children}
-  </span>
-);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0.1 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
+  return [ref, visible];
+}
+
+/* Typing Animation Hook */
+function useTypingEffect(words, typingSpeed = 100, pause = 1500) {
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    if (index === words.length) setIndex(0);
+
+    if (subIndex === words[index]?.length + 1 && !deleting) {
+      setTimeout(() => setDeleting(true), pause);
+      return;
+    }
+
+    if (subIndex === 0 && deleting) {
+      setDeleting(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (deleting ? -1 : 1));
+      setText(words[index]?.substring(0, subIndex));
+    }, deleting ? typingSpeed / 2 : typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, deleting, words, typingSpeed, pause]);
+
+  return text;
+}
+
+/* ===================
+   Main Component
+   =================== */
 export default function App() {
+  const [activeSection, setActiveSection] = useState("home");
+  const typedText = useTypingEffect(portfolioData.titles);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section, header");
+    const handleScroll = () => {
+      let current = "home";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 100; // a little more offset
+        if (window.scrollY >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      // Fix for Contact
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
+        current = "contact";
+      }
+
+      setActiveSection(current);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-      {/* Nav */}
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 dark:bg-gray-950/70 border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-          <a href="#home" className="font-semibold">{data.name}</a>
-          <nav className="hidden sm:flex gap-6 text-sm">
-            <a className="hover:opacity-80" href="#skills">Skills</a>
-            <a className="hover:opacity-80" href="#projects">Projects</a>
-            <a className="hover:opacity-80" href="#experience">Experience</a>
-            <a className="hover:opacity-80" href="#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white scroll-smooth">
+
+      {/* Navbar */}
+      <Navbar activeSection={activeSection} PRIMARY_TEXT_GRADIENT={PRIMARY_TEXT_GRADIENT} />
 
       {/* Hero */}
-      <section id="home" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
-              {data.title}
-            </h1>
-            <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
-              {data.tagline}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {data.links.resume && (
-                <a
-                  href={data.links.resume}
-                  className="inline-flex items-center rounded-2xl px-4 py-2 border border-gray-300 dark:border-gray-700 hover:shadow"
-                >
-                  Download Resume
-                </a>
-              )}
-              <a
-                href={data.links.github}
-                className="inline-flex items-center rounded-2xl px-4 py-2 bg-gray-900 text-white dark:bg-white dark:text-gray-900 hover:opacity-90"
-                target="_blank" rel="noreferrer"
-              >
-                View GitHub
-              </a>
-            </div>
-            <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-              <span>{data.location}</span>
-            </div>
-          </div>
-          <div className="border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl p-6 text-sm text-gray-500 dark:text-gray-400">
-            Add a headshot or a simple illustration here (e.g., /profile.jpg). Keep it friendly and professional.
-          </div>
+      <FadeSection id="home">
+        <h1 className={`text-4xl md:text-6xl font-extrabold ${PRIMARY_TEXT_GRADIENT} text-center drop-shadow-lg`}>
+          {portfolioData.name}
+        </h1>
+        <p className="mt-3 text-lg md:text-xl text-[#00ddff] font-semibold text-center min-h-[32px]">
+          {typedText}
+          <span className="border-r-2 border-[#00ddff] animate-pulse ml-1 inline-block h-6 align-middle"></span>
+        </p>
+        <p className="mt-4 max-w-3xl mx-auto text-center text-gray-400 leading-relaxed">
+          {portfolioData.objective}
+        </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href={portfolioData.resume}
+            download
+            className={`inline-flex items-center px-6 py-3 rounded-full ${PRIMARY_BG_GRADIENT} text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300`}
+          >
+            <FaDownload className="mr-2" /> Download Resume
+          </a>
+          <a
+            href={portfolioData.github}
+            target="_blank"
+            rel="noreferrer"
+            className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110"
+          >
+            <FaGithub size={22} />
+          </a>
+          <a
+            href={portfolioData.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110"
+          >
+            <FaLinkedin size={22} />
+          </a>
+          {/* <a
+            href={portfolioData.portfolio}
+            target="_blank"
+            rel="noreferrer"
+            className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110"
+          >
+            <FaWebAwesome size={22} />
+          </a> */}
         </div>
-      </section>
+      </FadeSection>
 
       {/* Skills */}
-      <Section id="skills" title="Skills & Tech Stack">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-            <h3 className="font-medium mb-3">Frontend</h3>
-            <div className="flex flex-wrap gap-2">
-              {data.skills.frontend.map((s) => (
-                <Pill key={s}>{s}</Pill>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-            <h3 className="font-medium mb-3">Backend</h3>
-            <div className="flex flex-wrap gap-2">
-              {data.skills.backend.map((s) => (
-                <Pill key={s}>{s}</Pill>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-            <h3 className="font-medium mb-3">Databases</h3>
-            <div className="flex flex-wrap gap-2">
-              {data.skills.databases.map((s) => (
-                <Pill key={s}>{s}</Pill>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-            <h3 className="font-medium mb-3">Tools</h3>
-            <div className="flex flex-wrap gap-2">
-              {data.skills.tools.map((s) => (
-                <Pill key={s}>{s}</Pill>
-              ))}
-            </div>
-          </div>
+      <FadeSection id="skills">
+        <h2 className="text-3xl font-bold mb-6 text-center">Skills</h2>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {portfolioData.skills.map((group, idx) => (
+            <SkillCard key={idx} title={group.title} skills={group.items} />
+          ))}
         </div>
-      </Section>
+      </FadeSection>
 
       {/* Projects */}
-      <Section id="projects" title="Featured Projects">
-        <div className="grid md:grid-cols-2 gap-6">
-          {data.projects.map((p) => (
-            <article key={p.name} className="rounded-2xl border border-gray-200 dark:border-gray-800 p-5 hover:shadow-sm transition-shadow">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-lg font-semibold">{p.name}</h3>
-                <div className="flex gap-3 text-sm">
-                  {p.demo !== "#" && (
-                    <a className="underline hover:opacity-80" href={p.demo} target="_blank" rel="noreferrer">Live</a>
-                  )}
-                  {p.code !== "#" && (
-                    <a className="underline hover:opacity-80" href={p.code} target="_blank" rel="noreferrer">Code</a>
-                  )}
-                </div>
+      <FadeSection id="projects">
+        <h2 className="text-3xl font-bold mb-6 text-center">Projects</h2>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {portfolioData.projects.map((p, idx) => (
+            <div
+              key={idx}
+              className={`bg-gray-800 p-6 rounded-xl shadow-lg transition transform hover:-translate-y-2 ${p.featured
+                ? "border-2 border-[#00ddff] hover:shadow-[#00ddff]/40"
+                : "hover:shadow-[#ff00d4]/40"
+                }`}
+            >
+              <h3 className={`text-xl font-semibold mb-2 ${PRIMARY_TEXT_GRADIENT}`}>
+                {p.title}
+              </h3>
+              <p className="text-gray-300 mb-4">{p.description}</p>
+
+              <div className="flex gap-3">
+                {p.github && (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`px-4 py-2 rounded-lg ${PRIMARY_BG_GRADIENT} text-white font-semibold hover:opacity-90 transition`}
+                  >
+                    GitHub
+                  </a>
+                )}
+                {p.demo && (
+                  <a
+                    href={p.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 rounded-lg bg-gray-700 text-white font-semibold hover:bg-gray-600 transition"
+                  >
+                    Demo
+                  </a>
+                )}
               </div>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.desc}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.stack.map((s) => (
-                  <Pill key={s}>{s}</Pill>
-                ))}
-              </div>
-            </article>
+            </div>
           ))}
         </div>
-      </Section>
+      </FadeSection>
 
-      {/* Experience */}
-      <Section id="experience" title="Experience">
-        <ol className="relative border-s border-gray-200 dark:border-gray-800 ms-3">
-          {data.experience.map((e, idx) => (
-            <li key={idx} className="mb-10 ms-4">
-              <div className="absolute w-3 h-3 bg-gray-300 dark:bg-gray-700 rounded-full -start-1.5 mt-1.5 border border-white dark:border-gray-900"></div>
-              <h3 className="text-base font-semibold">{e.role} · {e.company}</h3>
-              <time className="text-sm text-gray-500 dark:text-gray-400">{e.period}</time>
-              <ul className="list-disc ms-5 mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                {e.points.map((pt, i) => (
-                  <li key={i}>{pt}</li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ol>
-      </Section>
+      {/* Journey */}
+      <FadeSection id="journey">
+        <h2 className="text-3xl font-bold mb-6 text-center">My Journey</h2>
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical Center Line */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ff00d4] to-[#00ddff]"></div>
 
-      {/* Contact */}
-      <Section id="contact" title="Contact">
-        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
-          <div className="grid md:grid-cols-2 gap-6 text-sm">
-            <div>
-              <p><span className="font-medium">Email:</span> <a className="underline" href={`mailto:${data.email}`}>{data.email}</a></p>
-              <p className="mt-2"><span className="font-medium">Phone:</span> <a className="underline" href={`tel:${data.phone}`}>{data.phone}</a></p>
-            </div>
-            <div>
-              <p><span className="font-medium">GitHub:</span> <a className="underline" href={data.links.github} target="_blank" rel="noreferrer">{data.links.github}</a></p>
-              <p className="mt-2"><span className="font-medium">LinkedIn:</span> <a className="underline" href={data.links.linkedin} target="_blank" rel="noreferrer">{data.links.linkedin}</a></p>
-              <p className="mt-2"><span className="font-medium">Skype:</span> {data.links.skype}</p>
-            </div>
+          <div className="flex flex-col gap-12">
+            {portfolioData.journey.map((item, idx) => {
+              const isLeft = idx % 2 === 0;
+              const isEducation = item.type === "education";
+
+              // Gradient colors
+              const dotGrad = isEducation
+                ? "from-[#ff9d00] to-[#fff700]"
+                : "from-[#ff00d4] to-[#00ddff]";
+
+              const lineGrad = isLeft
+                ? `bg-gradient-to-l ${dotGrad}`
+                : `bg-gradient-to-r ${dotGrad}`;
+
+              const glowClass = isEducation
+                ? "hover:shadow-[0_0_20px_#ff9d00]"
+                : "hover:shadow-[0_0_20px_#ff00d4]";
+
+              return (
+                <div key={idx} className="relative w-full md:min-h-[6rem]">
+
+                  {/* Horizontal connector (starts from dot center) */}
+                  <div
+                    className={`absolute top-1/2 -translate-y-[1px] hidden md:block h-[2px] w-10 ${lineGrad} ${isLeft ? "right-1/2" : "left-1/2"
+                      }`}
+                  ></div>
+                  {/* Center Dot */}
+                  <div
+                    className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-4 border-gray-900 bg-gradient-to-r ${dotGrad}`}
+                  ></div>
+
+                  {/* Card */}
+                  <div
+                    className={`md:w-1/2 ${isLeft ? "md:pr-10 md:mr-auto" : "md:pl-10 md:ml-auto"} w-full`}
+                  >
+                    <div
+                      className={`bg-gray-800 p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1 ${glowClass}`}
+                    >
+                      <h3 className={`text-xl font-semibold ${isEducation ? "text-[#ff00d4]" : "text-[#00ddff]"}`}>{item.title}</h3>
+                      <p className="text-white">
+                        {item.company} | {item.period}
+                      </p>
+                      <p className="mt-2 text-gray-300 text-sm">{item.description}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </Section>
+      </FadeSection>
+      {/* Contact */}
+      <FadeSection id="contact">
+        <h2 className={`text-3xl font-bold mb-4 text-center ${PRIMARY_TEXT_GRADIENT}`}>
+          Get in Touch
+        </h2>
+        <div className="max-w-lg mx-auto bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-[#ff00d4]/40 transform hover:-translate-y-2 transition">
+          <p className="text-gray-300 mb-6 text-center leading-relaxed">
+            Open to connecting with professionals, recruiters, and industry peers.
+            Let's discuss how I can contribute to your team.
+          </p>
+          <div className="space-y-4 break-words break-all">
+            <a
+              href={`mailto:${portfolioData.contact.email}`}
+              className="flex items-center gap-3 text-lg text-gray-300 hover:text-[#00ddff] transition"
+            >
+              <FaEnvelope className="text-[#00ddff]" /> {portfolioData.contact.email}
+            </a>
+            <a
+              href={`tel:${portfolioData.contact.phone}`}
+              className="flex items-center gap-3 text-lg text-gray-300 hover:text-[#00ddff] transition"
+            >
+              <FaPhone className="text-[#00ddff]" /> {portfolioData.contact.phone}
+            </a>
+          </div>
+          <div className="mt-6 text-center">
+            <a
+              href={`mailto:${portfolioData.contact.email}`}
+              className={`inline-block px-8 py-3 ${PRIMARY_BG_GRADIENT} rounded-full text-white font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-xl`}
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </FadeSection>
 
-      <footer className="text-center text-xs text-gray-500 dark:text-gray-400 pb-10">
-        © {new Date().getFullYear()} {data.name}. All rights reserved.
+      <footer className="py-4 text-center text-gray-500 border-t border-gray-800">
+        © {new Date().getFullYear()} {portfolioData.name}. All rights reserved.
       </footer>
+    </div>
+  );
+}
+
+/* FadeSection wrapper */
+function FadeSection({ id, children }) {
+  const [ref, visible] = useScrollAnimation();
+  return (
+    <section id={id} ref={ref} className={`px-6 md:px-20 py-12 transition-all duration-700 ease-out transform ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+      {children}
+    </section>
+  );
+}
+
+/* Skill Card */
+function SkillCard({ title, skills }) {
+  return (
+    <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-[#ff00d4]/40 transform hover:-translate-y-2 transition">
+      <h3 className="text-xl font-semibold mb-4">{title}</h3>
+      <div className="flex flex-wrap gap-3">
+        {skills.map((s, idx) => (
+          <div key={idx} className="flex items-center gap-2">
+            {s.icon} <span className="text-gray-300">{s.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
