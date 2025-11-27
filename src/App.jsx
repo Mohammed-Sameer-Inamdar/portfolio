@@ -1,16 +1,27 @@
 import { useState, useEffect, useRef } from "react";
 import {
   FaDownload, FaGithub, FaLinkedin, FaReact, FaNodeJs, FaJava,
-  FaAndroid, FaGitAlt, FaLinux, FaDatabase, FaEnvelope, FaPhone
+  FaAndroid, FaGitAlt, FaLinux, FaDatabase, FaEnvelope, FaPhone,
+  FaAws,
+  FaFeatherAlt,
+  FaExternalLinkAlt
 } from "react-icons/fa";
 import {
   SiTailwindcss, SiJavascript, SiHtml5, SiCss3,
-  SiMongodb, SiMysql, SiPostgresql, SiPhp, SiCodeigniter
+  SiMongodb, SiMysql, SiPostgresql, SiPhp, SiCodeigniter,
+  SiBootstrap,
+  SiJsfiddle,
+  SiExpress,
+  SiAndroidstudio,
+  SiGradle
 } from "react-icons/si";
 import Navbar from "./navbar";
 
 import resume from './assets/resume.pdf';
 import { FaWebAwesome } from "react-icons/fa6";
+import { TbApi } from "react-icons/tb";
+import { DiGoogleCloudPlatform, DiNetbeans, DiVisualstudio } from "react-icons/di";
+import { CgEye } from "react-icons/cg";
 
 /* ===================
    Theme Constants
@@ -37,29 +48,29 @@ const portfolioData = {
   },
   skills: [
     {
-      title: "Frontend",
+      title: "Languages",
       items: [
+        { icon: <FaJava className="text-red-500" />, name: "Java" },
         { icon: <SiJavascript className="text-yellow-400" />, name: "JavaScript" },
         { icon: <SiHtml5 className="text-orange-500" />, name: "HTML" },
         { icon: <SiCss3 className="text-blue-500" />, name: "CSS" },
-        { icon: <FaReact className="text-cyan-400" />, name: "React" },
-        { icon: <SiTailwindcss className="text-sky-400" />, name: "Tailwind CSS" }
-      ]
-    },
-    {
-      title: "Backend",
-      items: [
-        { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
-        { icon: <FaJava className="text-red-500" />, name: "Java" },
+        { icon: <SiMysql className="text-purple-400" />, name: "SQL" },
         { icon: <SiPhp className="text-indigo-400" />, name: "PHP" },
-        { icon: <SiCodeigniter className="text-red-400" />, name: "CodeIgniter" }
       ]
     },
     {
-      title: "Mobile",
+      title: "Frameworks & Libraries",
       items: [
-        { icon: <FaAndroid className="text-green-400" />, name: "Android Studio" },
-        { icon: <FaReact className="text-cyan-400" />, name: "React Native" }
+        { icon: <SiJsfiddle className="text-green-500" />, name: "JSF" },
+        { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
+        { icon: <SiExpress className="text-green-500" />, name: "Express.js" },
+        { icon: <FaReact className="text-cyan-400" />, name: "React" },
+        { icon: <FaReact className="text-cyan-400" />, name: "React Redux" },
+        { icon: <FaReact className="text-cyan-400" />, name: "React Native" },
+        { icon: <SiCodeigniter className="text-red-400" />, name: "CodeIgniter" },
+        { icon: <SiTailwindcss className="text-sky-400" />, name: "Tailwind CSS" },
+        { icon: <SiBootstrap className="text-purple-400" />, name: "Bootstrap" },
+        { icon: <TbApi className="text-green-500" />, name: "API Integration" },
       ]
     },
     {
@@ -74,17 +85,29 @@ const portfolioData = {
     {
       title: "Tools",
       items: [
+        { icon: <DiVisualstudio className="text-orange-500" />, name: "VSCode" },
+        { icon: <SiAndroidstudio className="text-green-500" />, name: "Android Studio" },
+        { icon: <DiNetbeans className="text-blue-500" />, name: "NetBeans" },
         { icon: <FaGitAlt className="text-orange-500" />, name: "Git" },
-        { icon: <FaLinux className="text-yellow-500" />, name: "Linux" }
+        { icon: <FaLinux className="text-yellow-500" />, name: "Linux" },
+        { icon: <SiGradle className="text-yellow-500" />, name: "Gradle" },
+        { icon: <FaFeatherAlt className="text-yellow-500" />, name: "Maven" }
       ]
-    }
+    },
+    {
+      title: "Cloud Services",
+      items: [
+        { icon: <DiGoogleCloudPlatform className="text-green-400" />, name: "Google Cloud Platform" },
+        { icon: <FaAws className="text-cyan-400" />, name: "AWS" }
+      ]
+    },
   ],
   projects: [
     {
       title: "Repfabric CRM Integration",
       description: "I contributed to the development of the Repfabric project, a comprehensive customer relationship management (CRM) system built using JavaServer Faces (JSF). The primary objective of this project was to streamline sales processes, enhance customer interaction, and improve overall sales management efficiency.",
       github: null,
-      demo: null,
+      demo: "https://repfabric.com",
       featured: true
     },
     {
@@ -342,9 +365,9 @@ export default function App() {
                     href={p.demo}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-4 py-2 rounded-lg bg-gray-700 text-white font-semibold hover:bg-gray-600 transition"
+                    className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110 flex items-center justify-center"
                   >
-                    Demo
+                    <FaExternalLinkAlt size={22} className="text-[#00ddff]" />
                   </a>
                 )}
               </div>
