@@ -34,3 +34,12 @@
   width: 0;
   animation: typing 4s steps(40, end) forwards, blink 1s step-end infinite;
 }
+
+@keyframes card-pop {
+  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-pop {
+  animation: card-pop 0.6s ease-out forwards;
+}

@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 function Navbar({ activeSection, PRIMARY_TEXT_GRADIENT }) {
     const [menuOpen, setMenuOpen] = useState(false);
 
-    const menuItems = ["home", "skills", "projects", "journey", "contact"];
+    const menuItems = ["home", "skills", "certifications", "projects", "journey", "contact"];
 
     return (
         <nav className="sticky top-0 bg-black/50 backdrop-blur-md z-50 border-b border-white/10">

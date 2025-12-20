@@ -1,211 +1,15 @@
-import { useState, useEffect, useRef } from "react";
-import {
-  FaDownload, FaGithub, FaLinkedin, FaReact, FaNodeJs, FaJava,
-  FaAndroid, FaGitAlt, FaLinux, FaDatabase, FaEnvelope, FaPhone,
-  FaAws,
-  FaFeatherAlt,
-  FaExternalLinkAlt
-} from "react-icons/fa";
-import {
-  SiTailwindcss, SiJavascript, SiHtml5, SiCss3,
-  SiMongodb, SiMysql, SiPostgresql, SiPhp, SiCodeigniter,
-  SiBootstrap,
-  SiJsfiddle,
-  SiExpress,
-  SiAndroidstudio,
-  SiGradle
-} from "react-icons/si";
+import { useState, useEffect } from "react";
 import Navbar from "./navbar";
-
-import resume from './assets/resume.pdf';
-import { FaWebAwesome } from "react-icons/fa6";
-import { TbApi } from "react-icons/tb";
-import { DiGoogleCloudPlatform, DiNetbeans, DiVisualstudio } from "react-icons/di";
-import { CgEye } from "react-icons/cg";
-
-/* ===================
-   Theme Constants
-   =================== */
-const PRIMARY_GRADIENT = "from-[#ff00d4] to-[#00ddff]";
-const PRIMARY_TEXT_GRADIENT = `text-transparent bg-clip-text bg-gradient-to-r ${PRIMARY_GRADIENT}`;
-const PRIMARY_BG_GRADIENT = `bg-gradient-to-r ${PRIMARY_GRADIENT}`;
-
-/* ===================
-   Portfolio Data
-   =================== */
-const portfolioData = {
-  name: "Mohammed Sameer Inamdar",
-  titles: ["Full Stack Developer", "React.js Developer", "Node.js Developer", "Java Developer"],
-  objective:
-    "Passionate about building scalable, user-friendly applications. Skilled in full-stack development and always eager to explore new technologies. Currently working full-time at Indea Design Systems Pvt. Ltd.",
-  resume: resume,
-  github: "https://github.com/Mohammed-Sameer-Inamdar",
-  linkedin: "http://linkedin.com/in/mohammed-sameer-inamdar-031121174",
-  portfolio: "https://mohammed-sameer-inamdar.github.io/portfolio/",
-  contact: {
-    email: "mohammedsameerinamdar@gmail.com",
-    phone: "+91 81474 17110"
-  },
-  skills: [
-    {
-      title: "Languages",
-      items: [
-        { icon: <FaJava className="text-red-500" />, name: "Java" },
-        { icon: <SiJavascript className="text-yellow-400" />, name: "JavaScript" },
-        { icon: <SiHtml5 className="text-orange-500" />, name: "HTML" },
-        { icon: <SiCss3 className="text-blue-500" />, name: "CSS" },
-        { icon: <SiMysql className="text-purple-400" />, name: "SQL" },
-        { icon: <SiPhp className="text-indigo-400" />, name: "PHP" },
-      ]
-    },
-    {
-      title: "Frameworks & Libraries",
-      items: [
-        { icon: <SiJsfiddle className="text-green-500" />, name: "JSF" },
-        { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
-        { icon: <SiExpress className="text-green-500" />, name: "Express.js" },
-        { icon: <FaReact className="text-cyan-400" />, name: "React" },
-        { icon: <FaReact className="text-cyan-400" />, name: "React Redux" },
-        { icon: <FaReact className="text-cyan-400" />, name: "React Native" },
-        { icon: <SiCodeigniter className="text-red-400" />, name: "CodeIgniter" },
-        { icon: <SiTailwindcss className="text-sky-400" />, name: "Tailwind CSS" },
-        { icon: <SiBootstrap className="text-purple-400" />, name: "Bootstrap" },
-        { icon: <TbApi className="text-green-500" />, name: "API Integration" },
-      ]
-    },
-    {
-      title: "Databases",
-      items: [
-        { icon: <SiMongodb className="text-green-500" />, name: "MongoDB" },
-        { icon: <SiMysql className="text-blue-500" />, name: "MySQL" },
-        { icon: <SiPostgresql className="text-indigo-500" />, name: "PostgreSQL" },
-        { icon: <FaDatabase className="text-gray-300" />, name: "MS SQL" }
-      ]
-    },
-    {
-      title: "Tools",
-      items: [
-        { icon: <DiVisualstudio className="text-orange-500" />, name: "VSCode" },
-        { icon: <SiAndroidstudio className="text-green-500" />, name: "Android Studio" },
-        { icon: <DiNetbeans className="text-blue-500" />, name: "NetBeans" },
-        { icon: <FaGitAlt className="text-orange-500" />, name: "Git" },
-        { icon: <FaLinux className="text-yellow-500" />, name: "Linux" },
-        { icon: <SiGradle className="text-yellow-500" />, name: "Gradle" },
-        { icon: <FaFeatherAlt className="text-yellow-500" />, name: "Maven" }
-      ]
-    },
-    {
-      title: "Cloud Services",
-      items: [
-        { icon: <DiGoogleCloudPlatform className="text-green-400" />, name: "Google Cloud Platform" },
-        { icon: <FaAws className="text-cyan-400" />, name: "AWS" }
-      ]
-    },
-  ],
-  projects: [
-    {
-      title: "Repfabric CRM Integration",
-      description: "I contributed to the development of the Repfabric project, a comprehensive customer relationship management (CRM) system built using JavaServer Faces (JSF). The primary objective of this project was to streamline sales processes, enhance customer interaction, and improve overall sales management efficiency.",
-      github: null,
-      demo: "https://repfabric.com",
-      featured: true
-    },
-    {
-      title: "Hospitality Management System",
-      description: "A comprehensive hospitality management system built using React, Node.js, Express.js, and MongoDB. Features user authentication, reservation management.",
-      github: "https://github.com/Mohammed-Sameer-Inamdar/hospitality",
-      demo: null
-    },
-    {
-      title: "Dynamic Form Builder",
-      description: "React-based drag-and-drop form creation tool allowing custom field types, sections, and real-time preview. Integrated with APIs for saving and retrieving form layouts.",
-      github: "https://github.com/Mohammed-Sameer-Inamdar/dynamicForms",
-      demo: null
-    },
-    {
-      title: "Social Media",
-      description: "A social media platform built using React, Node.js, Express.js, and MongoDB. Features user authentication, profile creation, and real-time chat functionality.",
-      github: "https://github.com/Mohammed-Sameer-Inamdar/social-medai",
-      demo: null
-    },
-    {
-      title: "Task Management App",
-      description: "React + RTK Query powered app for managing tasks with filters, sorting, authentication, and optimized performance using memoization techniques.",
-      github: "https://github.com/Mohammed-Sameer-Inamdar/taskManager",
-      demo: null
-    },
-    {
-      title: "Portfolio Website",
-      description: "Modern personal portfolio with responsive design, animations, and interactive UI built using React, Tailwind CSS, and Vite.",
-      github: "https://github.com/Mohammed-Sameer-Inamdar/portfolio",
-      demo: "https://mohammed-sameer-inamdar.github.io/portfolio/"
-    },
-    {
-      title: "Know Your Rights",
-      description: "CodeIgniter powered app for understanding and complying with legal documents, ensuring compliance with laws and regulations. Providing references to the relevant laws and regulations.",
-      github: "https://github.com/Mohammed-Sameer-Inamdar/know_your_rights",
-      demo: null
-    }
-  ],
-  journey: [
-    // EXPERIENCE
-    {
-      type: "experience",
-      title: "Senior Software Developer",
-      company: "Indea Design Systems Pvt. Ltd",
-      period: "Apr 2021 – Present",
-      description:
-        "Collaborated on CRM and hospitality projects using JSF, React, and Node.js. Focused on performance optimization, API integration, and scalable solutions."
-    },
-    {
-      type: "experience",
-      title: "Junior Software Developer (Trainee)",
-      company: "Rooman Technologies",
-      period: "Feb 2020 – Apr 2020",
-      description:
-        "Completed comprehensive Java training focusing on OOP, Data Structures, and software development best practices."
-    },
-
-    // EDUCATION
-    {
-      type: "education",
-      title: "B.E. (ECE)",
-      company: "B.L.D.E.A.’s V.P. Dr. P.G. Halakatti College of Engineering and Technology, VTU University",
-      period: "2015 – 2019",
-      description: "Graduated with 7.65 CGPA"
-    },
-    {
-      type: "education",
-      title: "PUC (Science)",
-      company: "Secab P.U. College for Boys Vijayapur",
-      period: "2013 – 2015",
-      description: "Scored 87.33% (Distinction)"
-    },
-    {
-      type: "education",
-      title: "SSLC (10th)",
-      company: "Iqra Urdu High School Vijayapur",
-      period: "2012 – 2013",
-      description: "Scored 78.88%"
-    }
-  ]
-};
-
-/* ===================
-   Scroll Animation Hook
-   =================== */
-function useScrollAnimation() {
-  const ref = useRef();
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0.1 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return [ref, visible];
-}
+import portfolioData from "./profileData"
+import { PRIMARY_TEXT_GRADIENT } from "./utils/Constants";
+import ProjectCard from "./components/ProjectCard";
+import HeroCard from "./components/HeroCard";
+import JourneyCard from "./components/JourneyCard";
+import ContactCard from "./components/ContactCard";
+import CertificateCard from "./components/CertificateCard";
+import PortfolioData from "./profileData";
+import SkillCard from "./components/SkillCard";
+import FadeSection from "./components/FadeSection";
 
 /* Typing Animation Hook */
 function useTypingEffect(words, typingSpeed = 100, pause = 1500) {
@@ -240,11 +44,28 @@ function useTypingEffect(words, typingSpeed = 100, pause = 1500) {
 }
 
 /* ===================
-   Main Component
+    Main Component
    =================== */
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const typedText = useTypingEffect(portfolioData.titles);
+  const [activeCertTab, setActiveCertTab] = useState("award");
+  const [pdfPreview, setPdfPreview] = useState(null);
+
+  useEffect(() => {
+    if (pdfPreview) {
+      // Lock background scroll
+      document.body.style.overflow = "hidden";
+    } else {
+      // Restore scroll
+      document.body.style.overflow = "";
+    }
+
+    // Cleanup on unmount (safety)
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [pdfPreview]);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section, header");
@@ -268,59 +89,30 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const escHandler = (e) => {
+      if (e.key === "Escape") closePdf();
+    };
+    window.addEventListener("keydown", escHandler);
+    return () => window.removeEventListener("keydown", escHandler);
+  }, []);
+
+  const openPdf = (url) => {
+    setPdfPreview(url);
+  };
+
+  const closePdf = () => setPdfPreview(null);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white scroll-smooth">
 
       {/* Navbar */}
       <Navbar activeSection={activeSection} PRIMARY_TEXT_GRADIENT={PRIMARY_TEXT_GRADIENT} />
 
-      {/* Hero */}
       <FadeSection id="home">
-        <h1 className={`text-4xl md:text-6xl font-extrabold ${PRIMARY_TEXT_GRADIENT} text-center drop-shadow-lg`}>
-          {portfolioData.name}
-        </h1>
-        <p className="mt-3 text-lg md:text-xl text-[#00ddff] font-semibold text-center min-h-[32px]">
-          {typedText}
-          <span className="border-r-2 border-[#00ddff] animate-pulse ml-1 inline-block h-6 align-middle"></span>
-        </p>
-        <p className="mt-4 max-w-3xl mx-auto text-center text-gray-400 leading-relaxed">
-          {portfolioData.objective}
-        </p>
-
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <a
-            href={portfolioData.resume}
-            download
-            className={`inline-flex items-center px-6 py-3 rounded-full ${PRIMARY_BG_GRADIENT} text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300`}
-          >
-            <FaDownload className="mr-2" /> Download Resume
-          </a>
-          <a
-            href={portfolioData.github}
-            target="_blank"
-            rel="noreferrer"
-            className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110"
-          >
-            <FaGithub size={22} />
-          </a>
-          <a
-            href={portfolioData.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110"
-          >
-            <FaLinkedin size={22} />
-          </a>
-          {/* <a
-            href={portfolioData.portfolio}
-            target="_blank"
-            rel="noreferrer"
-            className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110"
-          >
-            <FaWebAwesome size={22} />
-          </a> */}
-        </div>
+        <HeroCard typedText={typedText} />
       </FadeSection>
+
 
       {/* Skills */}
       <FadeSection id="skills">
@@ -332,46 +124,44 @@ export default function App() {
         </div>
       </FadeSection>
 
+      <FadeSection id="certifications">
+        <h2 className={`text-3xl font-bold mb-8 text-center ${PRIMARY_TEXT_GRADIENT}`}>
+          Certifications, Training & Awards
+        </h2>
+        <div className="flex justify-center md:gap-2 lg:gap-4 mb-10 flex-wrap">
+          {[
+            { key: "award", label: "Awards 🏆" },
+            { key: "certification", label: "Certifications 🎓" },
+            { key: "training", label: "Training 🛠️" }
+          ].map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveCertTab(tab.key)}
+              className={`px-6 py-2 rounded-full font-medium transition-all duration-300
+                            ${activeCertTab === tab.key
+                  ? "bg-gradient-to-r from-[#ff00d4] to-[#00ddff] text-black shadow-lg scale-105"
+                  : "bg-gray-800 text-gray-400 hover:text-white"
+                }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {PortfolioData.certifications
+            .filter(c => c.type === activeCertTab)
+            .map((item, idx) => (
+              <CertificateCard key={idx} openPdf={openPdf} {...item} />
+            ))}
+        </div>
+      </FadeSection>
+
       {/* Projects */}
       <FadeSection id="projects">
         <h2 className="text-3xl font-bold mb-6 text-center">Projects</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {portfolioData.projects.map((p, idx) => (
-            <div
-              key={idx}
-              className={`bg-gray-800 p-6 rounded-xl shadow-lg transition transform hover:-translate-y-2 ${p.featured
-                ? "border-2 border-[#00ddff] hover:shadow-[#00ddff]/40"
-                : "hover:shadow-[#ff00d4]/40"
-                }`}
-            >
-              <h3 className={`text-xl font-semibold mb-2 ${PRIMARY_TEXT_GRADIENT}`}>
-                {p.title}
-              </h3>
-              <p className="text-gray-300 mb-4">{p.description}</p>
-
-              <div className="flex gap-3">
-                {p.github && (
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`px-4 py-2 rounded-lg ${PRIMARY_BG_GRADIENT} text-white font-semibold hover:opacity-90 transition`}
-                  >
-                    GitHub
-                  </a>
-                )}
-                {p.demo && (
-                  <a
-                    href={p.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-lg hover:scale-110 flex items-center justify-center"
-                  >
-                    <FaExternalLinkAlt size={22} className="text-[#00ddff]" />
-                  </a>
-                )}
-              </div>
-            </div>
+            <ProjectCard key={idx} {...p} />
           ))}
         </div>
       </FadeSection>
@@ -387,48 +177,8 @@ export default function App() {
             {portfolioData.journey.map((item, idx) => {
               const isLeft = idx % 2 === 0;
               const isEducation = item.type === "education";
-
-              // Gradient colors
-              const dotGrad = isEducation
-                ? "from-[#ff9d00] to-[#fff700]"
-                : "from-[#ff00d4] to-[#00ddff]";
-
-              const lineGrad = isLeft
-                ? `bg-gradient-to-l ${dotGrad}`
-                : `bg-gradient-to-r ${dotGrad}`;
-
-              const glowClass = isEducation
-                ? "hover:shadow-[0_0_20px_#ff9d00]"
-                : "hover:shadow-[0_0_20px_#ff00d4]";
-
               return (
-                <div key={idx} className="relative w-full md:min-h-[6rem]">
-
-                  {/* Horizontal connector (starts from dot center) */}
-                  <div
-                    className={`absolute top-1/2 -translate-y-[1px] hidden md:block h-[2px] w-10 ${lineGrad} ${isLeft ? "right-1/2" : "left-1/2"
-                      }`}
-                  ></div>
-                  {/* Center Dot */}
-                  <div
-                    className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-4 border-gray-900 bg-gradient-to-r ${dotGrad}`}
-                  ></div>
-
-                  {/* Card */}
-                  <div
-                    className={`md:w-1/2 ${isLeft ? "md:pr-10 md:mr-auto" : "md:pl-10 md:ml-auto"} w-full`}
-                  >
-                    <div
-                      className={`bg-gray-800 p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1 ${glowClass}`}
-                    >
-                      <h3 className={`text-xl font-semibold ${isEducation ? "text-[#ff00d4]" : "text-[#00ddff]"}`}>{item.title}</h3>
-                      <p className="text-white">
-                        {item.company} | {item.period}
-                      </p>
-                      <p className="mt-2 text-gray-300 text-sm">{item.description}</p>
-                    </div>
-                  </div>
-                </div>
+                <JourneyCard key={idx} isLeft={isLeft} isEducation={isEducation} {...item} />
               );
             })}
           </div>
@@ -439,65 +189,41 @@ export default function App() {
         <h2 className={`text-3xl font-bold mb-4 text-center ${PRIMARY_TEXT_GRADIENT}`}>
           Get in Touch
         </h2>
-        <div className="max-w-lg mx-auto bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-[#ff00d4]/40 transform hover:-translate-y-2 transition">
-          <p className="text-gray-300 mb-6 text-center leading-relaxed">
-            Open to connecting with professionals, recruiters, and industry peers.
-            Let's discuss how I can contribute to your team.
-          </p>
-          <div className="space-y-4 break-words break-all">
-            <a
-              href={`mailto:${portfolioData.contact.email}`}
-              className="flex items-center gap-3 text-lg text-gray-300 hover:text-[#00ddff] transition"
-            >
-              <FaEnvelope className="text-[#00ddff]" /> {portfolioData.contact.email}
-            </a>
-            <a
-              href={`tel:${portfolioData.contact.phone}`}
-              className="flex items-center gap-3 text-lg text-gray-300 hover:text-[#00ddff] transition"
-            >
-              <FaPhone className="text-[#00ddff]" /> {portfolioData.contact.phone}
-            </a>
-          </div>
-          <div className="mt-6 text-center">
-            <a
-              href={`mailto:${portfolioData.contact.email}`}
-              className={`inline-block px-8 py-3 ${PRIMARY_BG_GRADIENT} rounded-full text-white font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-xl`}
-            >
-              Contact Me
-            </a>
-          </div>
-        </div>
+        <ContactCard {...portfolioData.contact} />
       </FadeSection>
 
       <footer className="py-4 text-center text-gray-500 border-t border-gray-800">
         © {new Date().getFullYear()} {portfolioData.name}. All rights reserved.
       </footer>
-    </div>
-  );
-}
 
-/* FadeSection wrapper */
-function FadeSection({ id, children }) {
-  const [ref, visible] = useScrollAnimation();
-  return (
-    <section id={id} ref={ref} className={`px-6 md:px-20 py-12 transition-all duration-700 ease-out transform ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-      {children}
-    </section>
-  );
-}
+      {pdfPreview && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center px-4 overscroll-contain"
+          onClick={closePdf}
+        >
+          <div
+            className="relative w-full max-w-4xl h-[80vh] bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closePdf}
+              className="absolute top-4 right-4 z-10 text-white bg-black/60 hover:bg-black px-3 py-1 rounded-full"
+            >
+              ✕
+            </button>
 
-/* Skill Card */
-function SkillCard({ title, skills }) {
-  return (
-    <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-[#ff00d4]/40 transform hover:-translate-y-2 transition">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <div className="flex flex-wrap gap-3">
-        {skills.map((s, idx) => (
-          <div key={idx} className="flex items-center gap-2">
-            {s.icon} <span className="text-gray-300">{s.name}</span>
+            {/* PDF IFRAME */}
+            <iframe
+              src={pdfPreview}
+              className="w-full h-full rounded-2xl"
+              allow="autoplay"
+              title="Certificate Preview"
+            />
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
+
