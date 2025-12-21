@@ -113,20 +113,18 @@ const PortfolioData = {
             pdf: bestPerformer
         },
         {
-            title: "Winner – Invictus (Coding & Debugging)",
+            title: "Invictus (Coding & Debugging)",
             issuer: "BLDEA College of Engineering and Technology Vijayapura",
             date: "April-2017",
             type: "award",
-            featured: true,
             description: "Awarded for strong debugging skills, logical thinking, and fast problem-solving.",
             pdf: invictus
         },
         {
-            title: "Winner – Ganitoodeepi (Mathematics Event)",
+            title: "Ganitoodeepi (Mathematics Event)",
             issuer: "BLDEA College of Engineering and Technology Vijayapura",
             date: "Feb 2016",
             type: "award",
-            featured: true,
             description: "Recognized for analytical thinking and mathematical problem-solving excellence.",
             pdf: ganitoodeepini
         },
