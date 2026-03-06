@@ -11,7 +11,8 @@ import {
     SiJsfiddle,
     SiExpress,
     SiAndroidstudio,
-    SiGradle
+    SiGradle,
+    SiSpringboot
 } from "react-icons/si";
 import { TbApi } from "react-icons/tb";
 import { DiGoogleCloudPlatform, DiNetbeans, DiVisualstudio } from "react-icons/di";
@@ -60,6 +61,7 @@ const PortfolioData = {
         {
             title: "Frameworks & Libraries",
             items: [
+                { icon: <SiSpringboot className="text-green-500" />, name: "Spring Boot" },
                 { icon: <SiJsfiddle className="text-green-500" />, name: "JSF" },
                 { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
                 { icon: <SiExpress className="text-green-500" />, name: "Express.js" },
@@ -185,7 +187,7 @@ const PortfolioData = {
     projects: [
         {
             title: "Repfabric CRM Integration",
-            description: "I contributed to the development of the Repfabric project, a comprehensive customer relationship management (CRM) system built using JavaServer Faces (JSF). The primary objective of this project was to streamline sales processes, enhance customer interaction, and improve overall sales management efficiency.",
+            description: "I contributed to the development of the Repfabric project, a comprehensive customer relationship management (CRM) system. The primary objective of this project was to streamline sales processes, enhance customer interaction, and improve overall sales management efficiency.",
             github: null,
             demo: "https://repfabric.com",
             featured: true
@@ -232,7 +234,7 @@ const PortfolioData = {
         {
             type: "experience",
             title: "Senior Software Developer",
-            company: "Indea Design Systems Pvt. Ltd",
+            company: "Indea Design Systems Pvt. Ltd Mangalore",
             period: "Apr 2021 – Present",
             description:
                 "Collaborated on CRM and hospitality projects using JSF, React, and Node.js. Focused on performance optimization, API integration, and scalable solutions."
