@@ -3,7 +3,7 @@ import { PRIMARY_BG_GRADIENT } from "../utils/Constants"
 
 const ContactCard = ({ email, phone }) => {
     return (
-        <div className="max-w-lg mx-auto bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-[#ff00d4]/40 transform hover:-translate-y-2 transition">
+        <div className="max-w-lg mx-auto border border-white/10 bg-gray-900/75 p-8 rounded-2xl shadow-lg shadow-black/20 hover:shadow-[#ff00d4]/30 transform hover:-translate-y-2 transition-all duration-300">
             <p className="text-gray-300 mb-6 text-center leading-relaxed">
                 Open to connecting with professionals, recruiters, and industry peers.
                 Let's discuss how I can contribute to your team.
@@ -25,7 +25,7 @@ const ContactCard = ({ email, phone }) => {
             <div className="mt-6 text-center">
                 <a
                     href={`mailto:${email}`}
-                    className={`inline-block px-8 py-3 ${PRIMARY_BG_GRADIENT} rounded-full text-white font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-xl`}
+                    className={`shine-button inline-block px-8 py-3 ${PRIMARY_BG_GRADIENT} rounded-full text-white font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-xl`}
                 >
                     Contact Me
                 </a>

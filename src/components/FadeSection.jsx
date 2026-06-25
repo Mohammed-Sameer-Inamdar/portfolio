@@ -20,7 +20,7 @@ function useScrollAnimation() {
 const FadeSection = ({ id, children }) => {
     const [ref, visible] = useScrollAnimation();
     return (
-        <section id={id} ref={ref} className={`px-6 md:px-20 py-12 transition-all duration-700 ease-out transform ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <section id={id} ref={ref} className={`scroll-mt-24 px-6 md:px-20 py-14 transition-all duration-700 ease-out transform ${visible ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-10 blur-sm"}`}>
             {children}
         </section>
     );

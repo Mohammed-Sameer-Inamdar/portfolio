@@ -104,7 +104,9 @@ export default function App() {
   const closePdf = () => setPdfPreview(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white scroll-smooth">
+    <div className="relative isolate min-h-screen overflow-hidden bg-[#080a12] text-white scroll-smooth">
+      <div className="pointer-events-none fixed inset-0 -z-10 animated-aurora" />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[length:100%_100%,48px_48px,48px_48px]" />
 
       {/* Navbar */}
       <Navbar activeSection={activeSection} PRIMARY_TEXT_GRADIENT={PRIMARY_TEXT_GRADIENT} />
@@ -116,7 +118,7 @@ export default function App() {
 
       {/* Skills */}
       <FadeSection id="skills">
-        <h2 className="text-3xl font-bold mb-6 text-center">Skills</h2>
+        <h2 className={`text-3xl font-bold mb-6 text-center ${PRIMARY_TEXT_GRADIENT}`}>Skills</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {portfolioData.skills.map((group, idx) => (
             <SkillCard key={idx} title={group.title} skills={group.items} />
@@ -137,10 +139,10 @@ export default function App() {
             <button
               key={tab.key}
               onClick={() => setActiveCertTab(tab.key)}
-              className={`px-6 py-2 rounded-full font-medium transition-all duration-300
+              className={`px-6 py-2 rounded-full border font-medium transition-all duration-300
                             ${activeCertTab === tab.key
-                  ? "bg-gradient-to-r from-[#ff00d4] to-[#00ddff] text-black shadow-lg scale-105"
-                  : "bg-gray-800 text-gray-400 hover:text-white"
+                  ? "border-transparent bg-gradient-to-r from-[#ff00d4] to-[#00ddff] text-black shadow-lg scale-105"
+                  : "border-white/10 bg-gray-900/70 text-gray-400 hover:border-[#00ddff]/40 hover:text-white"
                 }`}
             >
               {tab.label}
@@ -158,7 +160,7 @@ export default function App() {
 
       {/* Projects */}
       <FadeSection id="projects">
-        <h2 className="text-3xl font-bold mb-6 text-center">Projects</h2>
+        <h2 className={`text-3xl font-bold mb-6 text-center ${PRIMARY_TEXT_GRADIENT}`}>Projects</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {portfolioData.projects.map((p, idx) => (
             <ProjectCard key={idx} {...p} />
@@ -168,10 +170,10 @@ export default function App() {
 
       {/* Journey */}
       <FadeSection id="journey">
-        <h2 className="text-3xl font-bold mb-6 text-center">My Journey</h2>
+        <h2 className={`text-3xl font-bold mb-6 text-center ${PRIMARY_TEXT_GRADIENT}`}>My Journey</h2>
         <div className="relative max-w-4xl mx-auto">
           {/* Vertical Center Line */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ff00d4] to-[#00ddff]"></div>
+          <div className="absolute top-0 bottom-0 w-1 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-b from-[#ff00d4] to-[#00ddff] md:left-1/2"></div>
 
           <div className="flex flex-col gap-12">
             {portfolioData.journey.map((item, idx) => {
@@ -208,7 +210,8 @@ export default function App() {
             {/* Close Button */}
             <button
               onClick={closePdf}
-              className="absolute top-4 right-4 z-10 text-white bg-black/60 hover:bg-black px-3 py-1 rounded-full"
+              className="absolute top-4 right-4 z-10 text-white bg-black/60 hover:bg-black px-3 py-1 rounded-full transition-transform hover:scale-110"
+              aria-label="Close preview"
             >
               ✕
             </button>
@@ -226,4 +229,3 @@ export default function App() {
     </div>
   );
 }
-

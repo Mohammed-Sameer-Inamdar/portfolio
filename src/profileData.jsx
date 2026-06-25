@@ -12,11 +12,13 @@ import {
     SiExpress,
     SiAndroidstudio,
     SiGradle,
-    SiSpringboot
+    SiSpringboot,
+    SiTypescript,
+    SiLaravel,
+    SiFirebase
 } from "react-icons/si";
 import { TbApi } from "react-icons/tb";
 import { DiGoogleCloudPlatform, DiNetbeans, DiVisualstudio } from "react-icons/di";
-import resume from './assets/resume.pdf';
 import bestPerformer from "./assets/certificates/best_performer_award_IDS2025.pdf";
 import invictus from "./assets/certificates/invictus-blde221019.pdf";
 import ganitoodeepini from "./assets/certificates/ganitodipeeni-blde221019.pdf";
@@ -35,10 +37,10 @@ import roomanJSD from "./assets/certificates/jsd-rooman-010820.pdf";
    =================== */
 const PortfolioData = {
     name: "Mohammed Sameer Inamdar",
-    titles: ["Full Stack Developer", "React.js Developer", "Node.js Developer", "Java Developer"],
+    titles: ["Full Stack Developer", "React.js Developer", "Node.js Developer", "Java Developer", "Spring Boot Developer"],
     objective:
-        "Passionate about building scalable, user-friendly applications. Skilled in full-stack development and always eager to explore new technologies. Currently working full-time at Indea Design Systems Pvt. Ltd.",
-    resume: resume,
+        "Full-Stack Developer with 5+ years of experience building scalable web applications and enterprise solutions using Java, Spring Boot, ReactJS, NodeJS, and modern web technologies. Passionate about solving complex problems, optimizing performance, and creating seamless user experiences. Recognized as Best Performer of the Year 2025 for delivering high-impact solutions and driving technical excellence.",
+    resume: "https://drive.google.com/uc?export=download&id=1tg3Vv0QWtrt0gu_E3MkuTFzDDQBkvwYt",
     github: "https://github.com/Mohammed-Sameer-Inamdar",
     linkedin: "http://linkedin.com/in/mohammed-sameer-inamdar-031121174",
     portfolio: "https://mohammed-sameer-inamdar.github.io/portfolio/",
@@ -52,6 +54,7 @@ const PortfolioData = {
             items: [
                 { icon: <FaJava className="text-red-500" />, name: "Java" },
                 { icon: <SiJavascript className="text-yellow-400" />, name: "JavaScript" },
+                { icon: <SiTypescript className="text-blue-500" />, name: "TypeScript" },
                 { icon: <SiHtml5 className="text-orange-500" />, name: "HTML" },
                 { icon: <SiCss3 className="text-blue-500" />, name: "CSS" },
                 { icon: <SiMysql className="text-purple-400" />, name: "SQL" },
@@ -63,15 +66,16 @@ const PortfolioData = {
             items: [
                 { icon: <SiSpringboot className="text-green-500" />, name: "Spring Boot" },
                 { icon: <SiJsfiddle className="text-green-500" />, name: "JSF" },
-                { icon: <FaNodeJs className="text-green-500" />, name: "Node.js" },
-                { icon: <SiExpress className="text-green-500" />, name: "Express.js" },
+                { icon: <FaNodeJs className="text-green-500" />, name: "NodeJS" },
+                { icon: <SiExpress className="text-green-500" />, name: "ExpressJS" },
                 { icon: <FaReact className="text-cyan-400" />, name: "React" },
                 { icon: <FaReact className="text-cyan-400" />, name: "React Redux" },
-                { icon: <FaReact className="text-cyan-400" />, name: "React Native" },
-                { icon: <SiCodeigniter className="text-red-400" />, name: "CodeIgniter" },
                 { icon: <SiTailwindcss className="text-sky-400" />, name: "Tailwind CSS" },
                 { icon: <SiBootstrap className="text-purple-400" />, name: "Bootstrap" },
                 { icon: <TbApi className="text-green-500" />, name: "API Integration" },
+                { icon: <FaReact className="text-cyan-400" />, name: "React Native" },
+                { icon: <SiCodeigniter className="text-red-400" />, name: "CodeIgniter" },
+                { icon: <SiLaravel className="text-red-400" />, name: "Laravel" }
             ]
         },
         {
@@ -79,8 +83,6 @@ const PortfolioData = {
             items: [
                 { icon: <SiMongodb className="text-green-500" />, name: "MongoDB" },
                 { icon: <SiMysql className="text-blue-500" />, name: "MySQL" },
-                { icon: <SiPostgresql className="text-indigo-500" />, name: "PostgreSQL" },
-                { icon: <FaDatabase className="text-gray-300" />, name: "MS SQL" }
             ]
         },
         {
@@ -98,8 +100,9 @@ const PortfolioData = {
         {
             title: "Cloud Services",
             items: [
+                { icon: <FaAws className="text-cyan-400" />, name: "AWS" },
                 { icon: <DiGoogleCloudPlatform className="text-green-400" />, name: "Google Cloud Platform" },
-                { icon: <FaAws className="text-cyan-400" />, name: "AWS" }
+                { icon: <SiFirebase className="text-red-500" />, name: "Firebase" }
             ]
         },
     ],
@@ -235,9 +238,9 @@ const PortfolioData = {
             type: "experience",
             title: "Senior Software Developer",
             company: "Indea Design Systems Pvt. Ltd Mangalore",
-            period: "Apr 2021 – Present",
+            period: "May 2021 – May 2026",
             description:
-                "Collaborated on CRM and hospitality projects using JSF, React, and Node.js. Focused on performance optimization, API integration, and scalable solutions."
+                "Collaborated on RepfabricCRM, Hospitality Management System and Project Management Systems projects using Java, Spring Boot, JSF, Kafka, React, and NodeJS. Focused on performance optimization, API integration, and scalable solutions."
         },
         {
             type: "experience",

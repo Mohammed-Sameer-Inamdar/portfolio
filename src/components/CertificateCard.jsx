@@ -4,7 +4,7 @@ import { PRIMARY_BG_GRADIENT } from "../utils/Constants";
 const CertificateCard = ({featured,title,issuer,date,description,pdf, openPdf }) => {
     return (
         <div
-            className={`group relative rounded-2xl p-[1.5px] transition-all duration-300
+            className={`group relative rounded-2xl p-[1.5px] transition-all duration-300 hover:-translate-y-2
                                 ${featured
                     ? "bg-gradient-to-r from-[#ff00d4] to-[#00ddff] scale-105 shadow-2xl"
                     : "bg-gradient-to-r from-white/10 to-white/5 hover:from-[#00ddff]/40 hover:to-[#ff00d4]/40"
@@ -18,7 +18,7 @@ const CertificateCard = ({featured,title,issuer,date,description,pdf, openPdf })
                     }`}
             >
                 {featured && (
-                    <span className="inline-block mb-2 text-xs uppercase tracking-widest text-[#00ddff]">
+                    <span className="inline-block mb-2 text-xs uppercase tracking-widest text-[#00ddff] animate-pulse-soft">
                         Featured
                     </span>
                 )}
@@ -47,7 +47,7 @@ const CertificateCard = ({featured,title,issuer,date,description,pdf, openPdf })
                         onClick={() => openPdf(pdf)}
                         target="_blank"
                         rel="noreferrer"
-                        className={`flex items-center w-fit mt-2 px-4 py-2 rounded-lg ${PRIMARY_BG_GRADIENT} text-white font-semibold hover:opacity-90 transition`}
+                        className={`shine-button flex items-center w-fit mt-2 px-4 py-2 rounded-lg ${PRIMARY_BG_GRADIENT} text-white font-semibold hover:opacity-90 transition`}
                     >
                         <FaEye className="text-xl mr-1 text-white" /> Preview
                     </button>

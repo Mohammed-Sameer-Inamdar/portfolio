@@ -3,6 +3,32 @@
 @tailwind utilities;
 
 @layer utilities {
+  @keyframes aurora {
+    0%, 100% {
+      background-position: 0% 50%, 100% 50%, 50% 0%;
+      filter: hue-rotate(0deg);
+    }
+    50% {
+      background-position: 100% 50%, 0% 50%, 50% 100%;
+      filter: hue-rotate(18deg);
+    }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(18px, -22px, 0) scale(1.06); }
+  }
+
+  @keyframes gradient-x {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.72; transform: scale(1.08); }
+  }
+
   @keyframes fade-up {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -19,6 +45,40 @@
   .animate-fade-up { animation: fade-up 0.8s ease-out forwards; }
   .animate-fade-down { animation: fade-down 0.8s ease-out forwards; }
   .animate-fade-left { animation: fade-left 0.8s ease-out forwards; }
+  .animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
+  .animate-float-slower { animation: float-slow 10s ease-in-out infinite reverse; }
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 6s ease infinite;
+  }
+  .animate-pulse-soft { animation: pulse-soft 2.4s ease-in-out infinite; }
+}
+
+.animated-aurora {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 0, 212, 0.22), transparent 32%),
+    radial-gradient(circle at 85% 12%, rgba(0, 221, 255, 0.22), transparent 30%),
+    radial-gradient(circle at 50% 85%, rgba(255, 157, 0, 0.13), transparent 34%);
+  background-size: 140% 140%;
+  animation: aurora 16s ease-in-out infinite;
+}
+
+.shine-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transition: transform 700ms ease;
+}
+
+.shine-button:hover::after {
+  transform: translateX(120%) skewX(-20deg);
 }
 
 @keyframes typing {
@@ -42,4 +102,15 @@
 
 .animate-pop {
   animation: card-pop 0.6s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

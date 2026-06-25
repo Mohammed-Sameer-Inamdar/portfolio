@@ -7,7 +7,7 @@ function Navbar({ activeSection, PRIMARY_TEXT_GRADIENT }) {
     const menuItems = ["home", "skills", "certifications", "projects", "journey", "contact"];
 
     return (
-        <nav className="sticky top-0 bg-black/50 backdrop-blur-md z-50 border-b border-white/10">
+        <nav className="sticky top-0 bg-black/50 backdrop-blur-md z-50 border-b border-white/10 shadow-lg shadow-black/20">
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
                 {/* Logo / Name */}
                 <h2 className={`text-xl font-bold tracking-wide ${PRIMARY_TEXT_GRADIENT}`}>
@@ -20,9 +20,9 @@ function Navbar({ activeSection, PRIMARY_TEXT_GRADIENT }) {
                         <li key={sec}>
                             <a
                                 href={`#${sec}`}
-                                className={`transition font-medium ${activeSection === sec
+                                className={`relative transition font-medium ${activeSection === sec
                                         ? "text-[#00ddff] border-b-2 border-[#00ddff] pb-1"
-                                        : "hover:text-[#00ddff]"
+                                        : "hover:text-[#00ddff] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#00ddff] after:transition-all after:duration-300 hover:after:w-full"
                                     }`}
                             >
                                 {sec.charAt(0).toUpperCase() + sec.slice(1)}
