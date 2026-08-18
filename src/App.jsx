@@ -7,48 +7,17 @@ import HeroCard from "./components/HeroCard";
 import JourneyCard from "./components/JourneyCard";
 import ContactCard from "./components/ContactCard";
 import CertificateCard from "./components/CertificateCard";
-import PortfolioData from "./profileData";
 import SkillCard from "./components/SkillCard";
+import CoreSkillCard from "./components/CoreSkillCard";
 import FadeSection from "./components/FadeSection";
-
-/* Typing Animation Hook */
-function useTypingEffect(words, typingSpeed = 100, pause = 1500) {
-  const [index, setIndex] = useState(0);
-  const [subIndex, setSubIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  const [text, setText] = useState("");
-
-  useEffect(() => {
-    if (index === words.length) setIndex(0);
-
-    if (subIndex === words[index]?.length + 1 && !deleting) {
-      setTimeout(() => setDeleting(true), pause);
-      return;
-    }
-
-    if (subIndex === 0 && deleting) {
-      setDeleting(false);
-      setIndex((prev) => (prev + 1) % words.length);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setSubIndex((prev) => prev + (deleting ? -1 : 1));
-      setText(words[index]?.substring(0, subIndex));
-    }, deleting ? typingSpeed / 2 : typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [subIndex, index, deleting, words, typingSpeed, pause]);
-
-  return text;
-}
+import { useTheme } from "./context/ThemeContext";
 
 /* ===================
     Main Component
    =================== */
 export default function App() {
+  const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState("home");
-  const typedText = useTypingEffect(portfolioData.titles);
   const [activeCertTab, setActiveCertTab] = useState("award");
   const [pdfPreview, setPdfPreview] = useState(null);
 
@@ -104,17 +73,33 @@ export default function App() {
   const closePdf = () => setPdfPreview(null);
 
   return (
-    <div className="relative isolate min-h-screen overflow-hidden bg-[#080a12] text-white scroll-smooth">
-      <div className="pointer-events-none fixed inset-0 -z-10 animated-aurora" />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[length:100%_100%,48px_48px,48px_48px]" />
+    <div className={`relative isolate min-h-screen scroll-smooth transition-colors duration-300 ${theme === 'dark'
+        ? 'bg-[#080a12] text-white'
+        : 'bg-white text-gray-900'
+      }`}>
+      <div className={`pointer-events-none fixed inset-0 -z-10 animated-aurora ${(theme ?? 'light') === 'dark' ? 'opacity-100' : 'opacity-0'}`} />
+      <div className={`pointer-events-none fixed inset-0 -z-10 transition-opacity duration-300 
+      ${theme === 'dark'
+          ? 'bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px)]'
+          : 'bg-[radial-gradient(circle_at_top,rgba(0,0,0,0.05),transparent_30%),linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)]'
+        } bg-[length:100%_100%,48px_48px,48px_48px]`} />
 
       {/* Navbar */}
       <Navbar activeSection={activeSection} PRIMARY_TEXT_GRADIENT={PRIMARY_TEXT_GRADIENT} />
 
       <FadeSection id="home">
-        <HeroCard typedText={typedText} />
+        <HeroCard />
       </FadeSection>
 
+      {/* Core Skills */}
+      <FadeSection id="core-skills">
+        <h2 className={`text-3xl font-bold mb-6 text-center ${PRIMARY_TEXT_GRADIENT}`}>Core Strengths</h2>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {portfolioData.coreSkills.map((skill, idx) => (
+            <CoreSkillCard key={idx} {...skill} />
+          ))}
+        </div>
+      </FadeSection>
 
       {/* Skills */}
       <FadeSection id="skills">
@@ -122,7 +107,7 @@ export default function App() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {portfolioData.skills.map((group, idx) => (
             <SkillCard key={idx} title={group.title} skills={group.items} />
-          ))}
+          ))} 
         </div>
       </FadeSection>
 
@@ -139,10 +124,10 @@ export default function App() {
             <button
               key={tab.key}
               onClick={() => setActiveCertTab(tab.key)}
-              className={`px-6 py-2 rounded-full border font-medium transition-all duration-300
+              className={`px-6 py-2 rounded-full border font-medium transition-all duration-300 m-2 md:m-0 w-[200px] md:w-auto text-theme-text border-theme-border bg-theme-bg
                             ${activeCertTab === tab.key
-                  ? "border-transparent bg-gradient-to-r from-[#ff00d4] to-[#00ddff] text-black shadow-lg scale-105"
-                  : "border-white/10 bg-gray-900/70 text-gray-400 hover:border-[#00ddff]/40 hover:text-white"
+                  ? "border-transparent bg-gradient-to-r from-[#ff00d4] to-[#00ddff] shadow-lg scale-105"
+                  : "hover:border-[#00ddff]/40 hover:text-white"
                 }`}
             >
               {tab.label}
@@ -150,7 +135,7 @@ export default function App() {
           ))}
         </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {PortfolioData.certifications
+          {portfolioData.certifications && portfolioData.certifications
             .filter(c => c.type === activeCertTab)
             .map((item, idx) => (
               <CertificateCard key={idx} openPdf={openPdf} {...item} />
@@ -194,23 +179,31 @@ export default function App() {
         <ContactCard {...portfolioData.contact} />
       </FadeSection>
 
-      <footer className="py-4 text-center text-gray-500 border-t border-gray-800">
+      <footer className={`py-4 text-center border-t transition-colors ${theme === 'dark'
+          ? 'text-gray-500 border-gray-800'
+          : 'text-gray-600 border-gray-300'
+        }`}>
         © {new Date().getFullYear()} {portfolioData.name}. All rights reserved.
       </footer>
 
       {pdfPreview && (
         <div
-          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center px-4 overscroll-contain"
+          className={`fixed inset-0 z-[100] backdrop-blur-sm flex items-center justify-center px-4 overscroll-contain ${theme === 'dark' ? 'bg-black/70' : 'bg-white/70'
+            }`}
           onClick={closePdf}
         >
           <div
-            className="relative w-full max-w-4xl h-[80vh] bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+            className={`relative w-full max-w-4xl h-[80vh] rounded-2xl shadow-2xl overflow-hidden ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'
+              }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={closePdf}
-              className="absolute top-4 right-4 z-10 text-white bg-black/60 hover:bg-black px-3 py-1 rounded-full transition-transform hover:scale-110"
+              className={`absolute top-4 right-4 z-10 px-3 py-1 rounded-full transition-transform hover:scale-110 ${theme === 'dark'
+                  ? 'text-white bg-black/60 hover:bg-black'
+                  : 'text-gray-900 bg-white/60 hover:bg-white'
+                }`}
               aria-label="Close preview"
             >
               ✕

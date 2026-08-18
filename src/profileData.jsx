@@ -48,6 +48,15 @@ const PortfolioData = {
         email: "mohammedsameerinamdar@gmail.com",
         phone: "+91 81474 17110"
     },
+    coreSkills: [
+        { name: "Java", proficiency: 95, icon: <FaJava className="text-red-500" /> },
+        { name: "React", proficiency: 90, icon: <FaReact className="text-cyan-400" /> },
+        { name: "Spring Boot", proficiency: 90, icon: <SiSpringboot className="text-green-500" /> },
+        { name: "JavaScript", proficiency: 90, icon: <SiJavascript className="text-yellow-400" /> },
+        { name: "Node.js", proficiency: 90, icon: <FaNodeJs className="text-green-500" /> },
+        { name: "Tailwind CSS", proficiency: 75, icon: <SiTailwindcss className="text-sky-400" /> },
+        { name: "TypeScript", proficiency: 75, icon: <SiTypescript className="text-blue-500" /> },
+    ],
     skills: [
         {
             title: "Languages",
@@ -193,43 +202,64 @@ const PortfolioData = {
             description: "I contributed to the development of the Repfabric project, a comprehensive customer relationship management (CRM) system. The primary objective of this project was to streamline sales processes, enhance customer interaction, and improve overall sales management efficiency.",
             github: null,
             demo: "https://repfabric.com",
-            featured: true
+            featured: true,
+            type: "enterprise",
+            techStack: ["React", "Node.js", "Express.js", "MongoDB", "AWS"],
+            metrics: { users: "500+", features: "150+", uptime: "99.9%" }
         },
         {
             title: "Hospitality Management System",
-            description: "A comprehensive hospitality management system built using React, Node.js, Express.js, and MongoDB. Features user authentication, reservation management.",
+            description: "A comprehensive hospitality management system built using React, Node.js, Express.js, and MongoDB. Features user authentication, reservation management, billing, and analytics.",
             github: "https://github.com/Mohammed-Sameer-Inamdar/hospitality",
-            demo: null
+            demo: null,
+            type: "fullstack",
+            techStack: ["React", "Node.js", "Express.js", "MongoDB", "JWT"],
+            metrics: { rooms: "100+", bookings: "1000+" }
         },
         {
             title: "Dynamic Form Builder",
             description: "React-based drag-and-drop form creation tool allowing custom field types, sections, and real-time preview. Integrated with APIs for saving and retrieving form layouts.",
             github: "https://github.com/Mohammed-Sameer-Inamdar/dynamicForms",
-            demo: null
+            demo: null,
+            type: "frontend",
+            techStack: ["React", "Tailwind CSS", "Redux", "Drag-Drop API"],
+            metrics: { fields: "50+", templates: "20+" }
         },
         {
-            title: "Social Media",
-            description: "A social media platform built using React, Node.js, Express.js, and MongoDB. Features user authentication, profile creation, and real-time chat functionality.",
+            title: "Social Media Platform",
+            description: "A social media platform built using React, Node.js, Express.js, and MongoDB. Features user authentication, profile creation, real-time chat, and post sharing functionality.",
             github: "https://github.com/Mohammed-Sameer-Inamdar/social-medai",
-            demo: null
+            demo: null,
+            type: "fullstack",
+            techStack: ["React", "Node.js", "Express.js", "MongoDB", "Socket.io"],
+            metrics: { users: "100+", messages: "10k+" }
         },
         {
             title: "Task Management App",
             description: "React + RTK Query powered app for managing tasks with filters, sorting, authentication, and optimized performance using memoization techniques.",
             github: "https://github.com/Mohammed-Sameer-Inamdar/taskManager",
-            demo: null
+            demo: null,
+            type: "frontend",
+            techStack: ["React", "Redux Toolkit", "RTK Query", "Tailwind CSS"],
+            metrics: { tasks: "unlimited", performance: "Optimized" }
         },
         {
             title: "Portfolio Website",
-            description: "Modern personal portfolio with responsive design, animations, and interactive UI built using React, Tailwind CSS, and Vite.",
+            description: "Modern personal portfolio with responsive design, animations, and interactive UI built using React, Tailwind CSS, and Vite. Features multi-theme support.",
             github: "https://github.com/Mohammed-Sameer-Inamdar/portfolio",
-            demo: "https://mohammed-sameer-inamdar.github.io/portfolio/"
+            demo: "https://mohammed-sameer-inamdar.github.io/portfolio/",
+            type: "frontend",
+            techStack: ["React", "Tailwind CSS", "Vite", "React Icons"],
+            metrics: { lighthouse: "95+", accessibility: "A11y" }
         },
         {
             title: "Know Your Rights",
-            description: "CodeIgniter powered app for understanding and complying with legal documents, ensuring compliance with laws and regulations. Providing references to the relevant laws and regulations.",
+            description: "CodeIgniter powered app for understanding and complying with legal documents, ensuring compliance with laws and regulations. Providing references to relevant laws.",
             github: "https://github.com/Mohammed-Sameer-Inamdar/know_your_rights",
-            demo: null
+            demo: null,
+            type: "backend",
+            techStack: ["CodeIgniter", "PHP", "MySQL", "Bootstrap"],
+            metrics: { laws: "500+", documents: "1000+" }
         }
     ],
     journey: [

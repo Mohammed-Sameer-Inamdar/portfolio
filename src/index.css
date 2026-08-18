@@ -13,7 +13,31 @@
       filter: hue-rotate(18deg);
     }
   }
+}
 
+@layer base {
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+  }
+
+  .dark {
+    --bg-primary: #080a12;
+    --bg-secondary: #111827;
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --border-color: #1f2937;
+  }
+
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)];
+  }
+}
+
+@layer utilities {
   @keyframes float-slow {
     0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
     50% { transform: translate3d(18px, -22px, 0) scale(1.06); }
