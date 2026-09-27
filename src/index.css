@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  @keyframes aurora {
-    0%, 100% {
-      background-position: 0% 50%, 100% 50%, 50% 0%;
-      filter: hue-rotate(0deg);
-    }
-    50% {
-      background-position: 100% 50%, 0% 50%, 50% 100%;
-      filter: hue-rotate(18deg);
-    }
-  }
-}
-
 @layer base {
   :root {
     --bg-primary: #ffffff;
@@ -32,12 +19,32 @@
     --border-color: #1f2937;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-[var(--bg-primary)] text-[var(--text-primary)];
+    margin: 0;
+  }
+
+  ::selection {
+    background: rgba(0, 221, 255, 0.22);
   }
 }
 
 @layer utilities {
+  @keyframes aurora {
+    0%, 100% {
+      background-position: 0% 50%, 100% 50%, 50% 0%;
+      filter: hue-rotate(0deg);
+    }
+    50% {
+      background-position: 100% 50%, 0% 50%, 50% 100%;
+      filter: hue-rotate(18deg);
+    }
+  }
+
   @keyframes float-slow {
     0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
     50% { transform: translate3d(18px, -22px, 0) scale(1.06); }
@@ -57,18 +64,19 @@
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
   }
+
   @keyframes fade-down {
     0% { opacity: 0; transform: translateY(-20px); }
     100% { opacity: 1; transform: translateY(0); }
   }
-  @keyframes fade-left {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
+
+  @keyframes hero-skill-in {
+    0% { opacity: 0; transform: translateY(12px) scale(0.94); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   .animate-fade-up { animation: fade-up 0.8s ease-out forwards; }
   .animate-fade-down { animation: fade-down 0.8s ease-out forwards; }
-  .animate-fade-left { animation: fade-left 0.8s ease-out forwards; }
   .animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
   .animate-float-slower { animation: float-slow 10s ease-in-out infinite reverse; }
   .animate-gradient-x {
@@ -85,6 +93,42 @@
     radial-gradient(circle at 50% 85%, rgba(255, 157, 0, 0.13), transparent 34%);
   background-size: 140% 140%;
   animation: aurora 16s ease-in-out infinite;
+}
+
+.hero-skill-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(0, 221, 255, 0.25);
+  border-radius: 9999px;
+  background: rgba(0, 221, 255, 0.05);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 rgba(0, 221, 255, 0);
+  opacity: 0;
+  animation: hero-skill-in 0.6s ease-out forwards;
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease, background 250ms ease;
+}
+
+.hero-skill-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 9999px;
+  background: #00ddff;
+  box-shadow: 0 0 10px rgba(0, 221, 255, 0.8);
+}
+
+.hero-skill-pill:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: rgba(0, 221, 255, 0.7);
+  background: rgba(0, 221, 255, 0.1);
+  box-shadow: 0 8px 28px rgba(0, 221, 255, 0.1);
 }
 
 .shine-button {
@@ -105,30 +149,11 @@
   transform: translateX(120%) skewX(-20deg);
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-@keyframes blink {
-  0%, 50%, 100% { border-color: transparent }
-  25%, 75% { border-color: #00ddff }
-}
-.animate-typing {
-  display: inline-block;
-  width: 0;
-  animation: typing 4s steps(40, end) forwards, blink 1s step-end infinite;
-}
-
-@keyframes card-pop {
-  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.animate-pop {
-  animation: card-pop 0.6s ease-out forwards;
-}
-
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {

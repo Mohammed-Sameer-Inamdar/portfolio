@@ -48,6 +48,35 @@ const PortfolioData = {
         email: "mohammedsameerinamdar@gmail.com",
         phone: "+91 81474 17110"
     },
+    default: {
+        title: "React / Node.js Full Stack Developer",
+        primarySkills: [
+            "React",
+            "Node.js",
+            "Express.js",
+            "MySQL"
+        ]
+    },
+
+    react: {
+        title: "React / Node.js Full Stack Developer",
+        primarySkills: [
+            "React",
+            "Node.js",
+            "Express.js",
+            "MySQL"
+        ]
+    },
+
+    java: {
+        title: "Java Full Stack Developer",
+        primarySkills: [
+            "Java",
+            "Spring Boot",
+            "React",
+            "MySQL"
+        ]
+    },
     coreSkills: [
         { name: "Java", proficiency: 95, icon: <FaJava className="text-red-500" /> },
         { name: "React", proficiency: 90, icon: <FaReact className="text-cyan-400" /> },
@@ -205,7 +234,7 @@ const PortfolioData = {
             featured: true,
             type: "enterprise",
             techStack: ["React", "Node.js", "Express.js", "MongoDB", "AWS"],
-            metrics: { users: "500+", features: "150+", uptime: "99.9%" }
+            // metrics: { users: "500+", features: "150+", uptime: "99.9%" }
         },
         {
             title: "Hospitality Management System",
@@ -214,7 +243,7 @@ const PortfolioData = {
             demo: null,
             type: "fullstack",
             techStack: ["React", "Node.js", "Express.js", "MongoDB", "JWT"],
-            metrics: { rooms: "100+", bookings: "1000+" }
+            // metrics: { rooms: "100+", bookings: "1000+" }
         },
         {
             title: "Dynamic Form Builder",
@@ -223,7 +252,7 @@ const PortfolioData = {
             demo: null,
             type: "frontend",
             techStack: ["React", "Tailwind CSS", "Redux", "Drag-Drop API"],
-            metrics: { fields: "50+", templates: "20+" }
+            // metrics: { fields: "50+", templates: "20+" }
         },
         {
             title: "Social Media Platform",
@@ -232,7 +261,7 @@ const PortfolioData = {
             demo: null,
             type: "fullstack",
             techStack: ["React", "Node.js", "Express.js", "MongoDB", "Socket.io"],
-            metrics: { users: "100+", messages: "10k+" }
+            // metrics: { users: "100+", messages: "10k+" }
         },
         {
             title: "Task Management App",
@@ -241,7 +270,7 @@ const PortfolioData = {
             demo: null,
             type: "frontend",
             techStack: ["React", "Redux Toolkit", "RTK Query", "Tailwind CSS"],
-            metrics: { tasks: "unlimited", performance: "Optimized" }
+            // metrics: { tasks: "unlimited", performance: "Optimized" }
         },
         {
             title: "Portfolio Website",
@@ -250,7 +279,7 @@ const PortfolioData = {
             demo: "https://mohammed-sameer-inamdar.github.io/portfolio/",
             type: "frontend",
             techStack: ["React", "Tailwind CSS", "Vite", "React Icons"],
-            metrics: { lighthouse: "95+", accessibility: "A11y" }
+            // metrics: { lighthouse: "95+", accessibility: "A11y" }
         },
         {
             title: "Know Your Rights",
@@ -259,7 +288,7 @@ const PortfolioData = {
             demo: null,
             type: "backend",
             techStack: ["CodeIgniter", "PHP", "MySQL", "Bootstrap"],
-            metrics: { laws: "500+", documents: "1000+" }
+            // metrics: { laws: "500+", documents: "1000+" }
         }
     ],
     journey: [

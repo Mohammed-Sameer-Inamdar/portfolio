@@ -1,28 +1,40 @@
 import { useEffect, useRef, useState } from "react";
 
-/* ===================
-    Scroll Animation Hook
-   =================== */
-function useScrollAnimation() {
-    const ref = useRef();
+const FadeSection = ({ id, children, className = "" }) => {
+    const ref = useRef(null);
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0.1 });
-        if (ref.current) observer.observe(ref.current);
+        const element = ref.current;
+        if (!element) return undefined;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setVisible(true);
+                    observer.unobserve(element);
+                }
+            },
+            { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+        );
+
+        observer.observe(element);
         return () => observer.disconnect();
     }, []);
 
-    return [ref, visible];
-}
-
-/* FadeSection wrapper */
-const FadeSection = ({ id, children }) => {
-    const [ref, visible] = useScrollAnimation();
     return (
-        <section id={id} ref={ref} className={`scroll-mt-24 px-6 md:px-20 py-14 transition-all duration-700 ease-out transform ${visible ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-10 blur-sm"}`}>
+        <section
+            id={id}
+            ref={ref}
+            className={`scroll-mt-24 px-6 py-14 md:px-20 transition-all duration-700 ease-out transform ${
+                visible
+                    ? "opacity-100 translate-y-0 blur-0"
+                    : "opacity-0 translate-y-8 blur-sm"
+            } ${className}`}
+        >
             {children}
         </section>
     );
-}
+};
+
 export default FadeSection;
