@@ -1,10 +1,10 @@
 const ROLE_PROFILES = {
   default: {
     label: "Full Stack Developer",
-    title: "Java Full Stack Developer",
+    title: "Full Stack Developer",
     eyebrow: "FULL STACK DEVELOPER",
-    primarySkills: ["Java", "Spring Boot", "React", "MySQL"],
-    focus: [],
+    primarySkills: ["Java", "React", "Node.js", "Express.js" ,"MySQL"],
+    focus: ["React", "Node.js", "Java", "Express.js" ,"MySQL"],
   },
   react: {
     label: "React / Node.js Developer",
