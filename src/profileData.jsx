@@ -48,35 +48,6 @@ const PortfolioData = {
         email: "mohammedsameerinamdar@gmail.com",
         phone: "+91 81474 17110"
     },
-    default: {
-        title: "React / Node.js Full Stack Developer",
-        primarySkills: [
-            "React",
-            "Node.js",
-            "Express.js",
-            "MySQL"
-        ]
-    },
-
-    react: {
-        title: "React / Node.js Full Stack Developer",
-        primarySkills: [
-            "React",
-            "Node.js",
-            "Express.js",
-            "MySQL"
-        ]
-    },
-
-    java: {
-        title: "Java Full Stack Developer",
-        primarySkills: [
-            "Java",
-            "Spring Boot",
-            "React",
-            "MySQL"
-        ]
-    },
     coreSkills: [
         { name: "Java", proficiency: 95, icon: <FaJava className="text-red-500" /> },
         { name: "React", proficiency: 90, icon: <FaReact className="text-cyan-400" /> },
