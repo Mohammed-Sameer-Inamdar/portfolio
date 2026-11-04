@@ -45,7 +45,7 @@ const PortfolioData = {
     linkedin: "http://linkedin.com/in/mohammed-sameer-inamdar-031121174",
     portfolio: "https://mohammed-sameer-inamdar.github.io/portfolio/",
     contact: {
-        email: "mohammedsameerinamdar@gmail.com",
+        email: "mdsameer1697@gmail.com",
         phone: "+91 81474 17110"
     },
     coreSkills: [
